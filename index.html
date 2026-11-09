@@ -3,27 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Google Antigravity | Personal Link Hub</title>
+  <title>Jumayev Zavqiddin | Shaxsiy Portfolio & Link Hub</title>
   
-  <!-- Matter.js Physics Engine -->
+  <!-- Matter.js Physics Engine (O'yin rejimi uchun) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Inter & Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg-dark: #0a0b10;
-      --card-bg: rgba(23, 25, 38, 0.72);
-      --card-border: rgba(255, 255, 255, 0.12);
-      --card-border-hover: rgba(255, 255, 255, 0.35);
+      --bg-dark: #07090e;
+      --card-bg: rgba(18, 22, 34, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-border-hover: rgba(255, 255, 255, 0.25);
       --text-main: #f8fafc;
       --text-muted: #94a3b8;
-      --accent-glow: rgba(99, 102, 241, 0.3);
-      --neon-cyan: #06b6d4;
-      --neon-purple: #8b5cf6;
+      --accent-cyan: #06b6d4;
+      --accent-purple: #8b5cf6;
+      --accent-pink: #ec4899;
+      --accent-green: #10b981;
     }
 
     * {
@@ -36,122 +37,114 @@
 
     body, html {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
+      min-height: 100vh;
       background-color: var(--bg-dark);
       font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--text-main);
-      touch-action: none;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
-    /* Ambient Background Glow */
-    .cosmic-background {
+    /* Professional Background Lighting */
+    .ambient-background {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      inset: 0;
       z-index: 0;
       pointer-events: none;
       background: 
-        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.18) 0%, transparent 40%),
-        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.15) 0%, transparent 45%),
-        radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 60%),
-        #090a0f;
-      overflow: hidden;
+        radial-gradient(circle at 15% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 40%),
+        radial-gradient(circle at 85% 25%, rgba(139, 92, 246, 0.14) 0%, transparent 45%),
+        radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        #07090e;
     }
 
-    /* Grid overlay for tech look */
     .grid-overlay {
       position: absolute;
       inset: 0;
       background-image: 
         linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-      background-size: 50px 50px;
-      pointer-events: none;
+      background-size: 40px 40px;
+      mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
     }
 
-    /* Canvas overlay */
-    #physics-canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+    /* Main Container (Professional Center Layout) */
+    .main-wrapper {
+      position: relative;
       z-index: 10;
-      cursor: grab;
-      touch-action: none;
-    }
-
-    #physics-canvas:active {
-      cursor: grabbing;
-    }
-
-    /* DOM Layer for floating elements */
-    #dom-layer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 5;
-      pointer-events: none;
-    }
-
-    /* Fixed UI Header (Avatar, Bio, Gravity Control) */
-    .header-container {
-      position: fixed;
-      top: 24px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 20;
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 40px 20px 80px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
-      width: 90%;
-      max-width: 480px;
-      pointer-events: auto;
-      text-align: center;
+      gap: 28px;
     }
 
-    .profile-card {
-      background: rgba(17, 20, 32, 0.65);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 28px;
-      padding: 22px 28px;
+    /* 1. Profile Bento Header Card */
+    .profile-hero {
       width: 100%;
+      background: rgba(15, 18, 28, 0.75);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--card-border);
+      border-radius: 32px;
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       box-shadow: 
-        0 20px 40px -15px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.15);
-      transition: all 0.3s ease;
-    }
-
-    .profile-card:hover {
-      border-color: rgba(255, 255, 255, 0.2);
-      box-shadow: 
-        0 25px 50px -15px rgba(0, 0, 0, 0.8),
-        inset 0 1px 0 rgba(255, 255, 255, 0.25);
-    }
-
-    .avatar-wrapper {
+        0 24px 48px -12px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
       position: relative;
-      width: 86px;
-      height: 86px;
-      margin: 0 auto 14px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .profile-hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 250px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent-cyan), var(--accent-purple), transparent);
+    }
+
+    /* Avatar */
+    .avatar-container {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      margin-bottom: 18px;
+    }
+
+    .avatar-glow {
+      position: absolute;
+      inset: -4px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple), var(--accent-pink));
+      filter: blur(8px);
+      opacity: 0.6;
+      animation: pulseGlow 4s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+      0% { opacity: 0.4; transform: scale(0.96); }
+      100% { opacity: 0.8; transform: scale(1.04); }
+    }
+
+    .avatar-box {
+      position: relative;
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       padding: 3px;
-      background: linear-gradient(135deg, #06b6d4, #8b5cf6, #ec4899);
-      box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
-      animation: avatarPulse 4s ease-in-out infinite alternate;
-    }
-
-    @keyframes avatarPulse {
-      0% { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
-      100% { box-shadow: 0 0 35px rgba(236, 72, 153, 0.5); }
+      background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
 
     .avatar-img {
@@ -163,794 +156,633 @@
       border: 2px solid #090a0f;
     }
 
-    .online-indicator {
+    .status-badge-dot {
       position: absolute;
       bottom: 4px;
       right: 4px;
-      width: 15px;
-      height: 15px;
+      width: 16px;
+      height: 16px;
       background: #10b981;
-      border: 2.5px solid #090a0f;
+      border: 3px solid #07090e;
       border-radius: 50%;
-      box-shadow: 0 0 10px #10b981;
+      box-shadow: 0 0 12px #10b981;
     }
 
-    .profile-name {
-      font-size: 1.35rem;
-      font-weight: 800;
+    .user-name {
+      font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.65rem;
+      font-weight: 700;
       letter-spacing: -0.02em;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      background: linear-gradient(to right, #ffffff, #cbd5e1);
+      gap: 8px;
+      background: linear-gradient(to right, #ffffff, #e2e8f0);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .verified-badge {
-      display: inline-flex;
+    .verified-icon {
       color: #38bdf8;
-      font-size: 1.1rem;
+      display: inline-flex;
     }
 
-    .profile-bio {
+    .user-role {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-bio {
       font-size: 0.88rem;
       color: var(--text-muted);
-      line-height: 1.45;
-      font-weight: 500;
-      margin-bottom: 8px;
+      line-height: 1.6;
+      max-width: 440px;
+      margin-bottom: 20px;
     }
 
-    .profile-tag {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      padding: 4px 12px;
-      border-radius: 20px;
-      background: rgba(99, 102, 241, 0.15);
-      border: 1px solid rgba(99, 102, 241, 0.3);
-      color: #a5b4fc;
-    }
-
-    /* Controls Bar */
-    .controls-bar {
+    /* Badges Pill Row */
+    .pill-tags-row {
       display: flex;
-      gap: 10px;
-      justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
-    }
-
-    .mode-toggle-btn {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: rgba(23, 27, 44, 0.8);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #ffffff;
-      padding: 10px 20px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .mode-toggle-btn:hover {
-      background: rgba(35, 41, 68, 0.95);
-      border-color: rgba(255, 255, 255, 0.35);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
-    }
-
-    .mode-toggle-btn:active {
-      transform: translateY(0);
-    }
-
-    .mode-indicator-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: #06b6d4;
-      box-shadow: 0 0 10px #06b6d4;
-      transition: background 0.3s, box-shadow 0.3s;
-    }
-
-    .mode-toggle-btn.normal-mode .mode-indicator-dot {
-      background: #10b981;
-      box-shadow: 0 0 10px #10b981;
-    }
-
-    .mode-toggle-btn.antigravity-mode .mode-indicator-dot {
-      background: #ec4899;
-      box-shadow: 0 0 12px #ec4899;
-      animation: pulseNeon 1.5s infinite;
-    }
-
-    @keyframes pulseNeon {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(1.3); }
-    }
-
-    .action-btn {
-      display: flex;
-      align-items: center;
       justify-content: center;
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: rgba(23, 27, 44, 0.8);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      color: #94a3b8;
-      cursor: pointer;
+      gap: 8px;
+    }
+
+    .pill-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #cbd5e1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: all 0.2s ease;
     }
 
-    .action-btn:hover {
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.4);
-      transform: scale(1.08);
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    .pill-tag:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.18);
+      transform: translateY(-1px);
     }
 
-    /* Floating Link Cards (Rigid Bodies in DOM) */
-    .link-card {
-      position: absolute;
-      top: 0;
-      left: 0;
+    /* Mode Controls Bar */
+    .toolbar-container {
+      width: 100%;
       display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 0 4px;
+    }
+
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #64748b;
+    }
+
+    .physics-toggle-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #e2e8f0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: all 0.25s ease;
+    }
+
+    .physics-toggle-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .physics-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px var(--accent-cyan);
+    }
+
+    /* 2. Pinned Professional Link Cards (Bento Style Grid) */
+    .links-grid {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
       gap: 14px;
-      padding: 12px 18px;
+      position: relative;
+    }
+
+    .pinned-card {
+      width: 100%;
       background: var(--card-bg);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      border-radius: 20px;
-      box-shadow: 
-        0 14px 28px -6px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
-      transform-origin: center center;
-      will-change: transform;
-      pointer-events: none; /* Pointer handled by physics canvas */
-      transition: border-color 0.2s, box-shadow 0.2s;
+      border-radius: 22px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--text-main);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 24px -6px rgba(0, 0, 0, 0.4);
     }
 
-    .link-card.active-drag {
-      border-color: rgba(255, 255, 255, 0.45);
-      box-shadow: 
-        0 20px 40px -5px rgba(0, 0, 0, 0.7),
-        0 0 25px var(--accent-glow);
+    .pinned-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.08) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
-    .icon-box {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
+    .pinned-card:hover {
+      transform: translateY(-3px) scale(1.01);
+      border-color: var(--card-border-hover);
+      box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.6),
+        0 0 25px var(--hover-glow, rgba(255, 255, 255, 0.1));
+    }
+
+    .pinned-card:hover::after {
+      opacity: 1;
+    }
+
+    .pinned-card:active {
+      transform: translateY(-1px) scale(0.99);
+    }
+
+    /* Icon Box */
+    .card-icon-wrapper {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
-      color: #fff;
-      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+      color: #ffffff;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+      position: relative;
+      transition: transform 0.3s ease;
     }
 
-    .icon-box svg {
-      width: 22px;
-      height: 22px;
+    .pinned-card:hover .card-icon-wrapper {
+      transform: scale(1.08) rotate(3deg);
+    }
+
+    .card-icon-wrapper svg {
+      width: 24px;
+      height: 24px;
       fill: currentColor;
     }
 
-    .link-info {
+    /* Texts */
+    .card-body {
       display: flex;
       flex-direction: column;
+      flex-grow: 1;
       overflow: hidden;
-      white-space: nowrap;
     }
 
-    .link-title {
-      font-size: 0.95rem;
+    .card-title {
+      font-size: 1.05rem;
       font-weight: 700;
-      color: #f8fafc;
       letter-spacing: -0.01em;
+      color: #f8fafc;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
 
-    .link-desc {
-      font-size: 0.74rem;
-      font-weight: 500;
+    .badge-pill {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+    }
+
+    .card-description {
+      font-size: 0.8rem;
       color: var(--text-muted);
-      margin-top: 1px;
+      margin-top: 2px;
+      font-weight: 500;
     }
 
-    .external-arrow {
-      margin-left: auto;
-      color: rgba(255, 255, 255, 0.35);
-      font-size: 0.85rem;
-      transition: transform 0.2s ease, color 0.2s ease;
-      flex-shrink: 0;
-    }
-
-    /* Hints at bottom */
-    .hint-container {
-      position: fixed;
-      bottom: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 15;
-      pointer-events: none;
+    /* External Arrow */
+    .arrow-icon-box {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
       display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, 0.4);
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .pinned-card:hover .arrow-icon-box {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: translate(2px, -2px);
+    }
+
+    /* Footer */
+    .footer-bar {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 0.78rem;
+      color: #64748b;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .footer-bar a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-bar a:hover {
+      color: #f8fafc;
+    }
+
+    /* Physics Sandbox Overlay (Faqat o'yin rejimi yoqilganda) */
+    #physics-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 100;
+      pointer-events: none;
+      display: none;
+    }
+
+    #physics-canvas.active {
+      display: block;
+      pointer-events: auto;
+      cursor: grab;
+      background: rgba(7, 9, 14, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    #physics-canvas:active {
+      cursor: grabbing;
+    }
+
+    .exit-physics-btn {
+      position: fixed;
+      top: 24px;
+      right: 24px;
+      z-index: 110;
+      display: none;
       align-items: center;
       gap: 8px;
-      background: rgba(15, 17, 26, 0.7);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(239, 68, 68, 0.2);
+      border: 1px solid rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+      padding: 10px 18px;
       border-radius: 30px;
-      padding: 8px 18px;
-      font-size: 0.76rem;
-      color: var(--text-muted);
-      letter-spacing: 0.02em;
-      animation: fadeInOut 3s infinite alternate;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    @keyframes fadeInOut {
-      0% { opacity: 0.6; }
-      100% { opacity: 1; }
+    .exit-physics-btn.active {
+      display: flex;
     }
 
-    .hint-key {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 6px;
-      padding: 2px 6px;
-      color: #e2e8f0;
-      font-weight: 600;
+    .exit-physics-btn:hover {
+      background: rgba(239, 68, 68, 0.35);
+      color: #ffffff;
+      transform: scale(1.05);
     }
 
-    /* Mobile adjustments */
     @media (max-width: 600px) {
-      .header-container {
-        top: 16px;
-        width: 92%;
-      }
-      .profile-card {
-        padding: 18px 20px;
-        border-radius: 24px;
-      }
-      .avatar-wrapper {
-        width: 74px;
-        height: 74px;
-        margin-bottom: 10px;
-      }
-      .profile-name {
-        font-size: 1.2rem;
-      }
-      .profile-bio {
-        font-size: 0.8rem;
-      }
-      .hint-container {
-        bottom: 12px;
-        padding: 6px 14px;
-        font-size: 0.7rem;
-      }
+      .main-wrapper { padding: 24px 16px 60px; gap: 20px; }
+      .profile-hero { padding: 24px 18px; border-radius: 26px; }
+      .avatar-container { width: 84px; height: 84px; }
+      .user-name { font-size: 1.35rem; }
+      .user-bio { font-size: 0.82rem; }
+      .pinned-card { padding: 14px 16px; border-radius: 18px; }
+      .card-icon-wrapper { width: 42px; height: 42px; border-radius: 13px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Background Layer -->
-  <div class="cosmic-background">
+  <!-- Ambient Backdrop -->
+  <div class="ambient-background">
     <div class="grid-overlay"></div>
   </div>
 
-  <!-- Physics Canvas (Captures all drags & interactions) -->
+  <!-- Physics Fullscreen Overlay (Bonus rejim) -->
   <canvas id="physics-canvas"></canvas>
+  <button class="exit-physics-btn" id="exit-physics-btn">
+    ✕ Qadab qo'yish (Tartibga qaytish)
+  </button>
 
-  <!-- DOM Render Layer for Floating Link Bodies -->
-  <div id="dom-layer"></div>
-
-  <!-- Fixed Top Profile & Gravity Controls -->
-  <header class="header-container" id="main-header">
-    <div class="profile-card">
-      <div class="avatar-wrapper">
-        <img 
-          src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80" 
-          alt="Avatar" 
-          class="avatar-img"
-        >
-        <span class="online-indicator" title="Faol"></span>
+  <!-- Professional Main Link Hub (Pinned in Place) -->
+  <main class="main-wrapper">
+    
+    <!-- Profile Hero Card -->
+    <header class="profile-hero">
+      <div class="avatar-container">
+        <div class="avatar-glow"></div>
+        <div class="avatar-box">
+          <img 
+            src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=300&q=80" 
+            alt="Jumayev Zavqiddin" 
+            class="avatar-img"
+          >
+          <span class="status-badge-dot" title="Hozir onlayn"></span>
+        </div>
       </div>
-      
-      <h1 class="profile-name">
+
+      <h1 class="user-name">
         Jumayev Zavqiddin
-        <span class="verified-badge" title="Tasdiqlangan">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+        <span class="verified-icon" title="Tasdiqlangan profil">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
           </svg>
         </span>
       </h1>
-      
-      <p class="profile-bio">
-        AI va Dasturlashni o'rganyapman 🚀 Yangi texnologiyalar va interaktiv raqamli loyihalar yaratish yo'lida.
+
+      <div class="user-role">
+        <span>🚀 AI & Dasturlash Mutaxassisi</span>
+      </div>
+
+      <p class="user-bio">
+        Zamonaviy sun'iy intellekt (AI), veb-texnologiyalar va interaktiv raqamli loyihalar yaratish yo‘lida. 
       </p>
 
-      <div class="profile-tag">✦ AI & Dasturlash O'rganuvchisi</div>
-    </div>
+      <!-- Skill Tags -->
+      <div class="pill-tags-row">
+        <span class="pill-tag">✦ Web Development</span>
+        <span class="pill-tag">✦ Artificial Intelligence</span>
+        <span class="pill-tag">✦ Git & GitHub</span>
+        <span class="pill-tag">🟢 Open to Work</span>
+      </div>
+    </header>
 
-    <!-- Gravity Mode Switcher & Tools -->
-    <div class="controls-bar">
-      <button class="mode-toggle-btn antigravity-mode" id="gravity-btn" aria-label="Gravitatsiya rejimini almashtirish">
-        <span class="mode-indicator-dot"></span>
-        <span id="gravity-btn-text">Antigravitatsiya: YOQILGAN</span>
-      </button>
-
-      <button class="action-btn" id="scatter-btn" title="Bloklarni sochib yuborish (Impuls)">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M5 12h14M12 5l7 7-7 7"/>
-        </svg>
-      </button>
-
-      <button class="action-btn" id="reset-btn" title="Bloklarni tartib bilan qayta joylashtirish">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
-          <path d="M3 3v5h5"/>
-        </svg>
+    <!-- Toolbar: Pinned vs Physics Play -->
+    <div class="toolbar-container">
+      <span class="section-title">Asosiy Havolalar</span>
+      
+      <button class="physics-toggle-btn" id="start-physics-btn" title="Bloklarni vaznsizlikda koptokdek otib o'ynash">
+        <span class="physics-dot"></span>
+        <span>🪐 Antigravity Rejimini Yoqish</span>
       </button>
     </div>
-  </header>
 
-  <!-- Interactive Hint -->
-  <div class="hint-container">
-    <span>💡 Maslahat: Bloklarni <span class="hint-key">sudrab uloqtiring</span> yoki ochish uchun <span class="hint-key">bosing</span></span>
-  </div>
+    <!-- Pinned Professional Links Grid -->
+    <section class="links-grid" id="links-container">
 
+      <!-- 1. Telegram -->
+      <a href="https://t.me/Jumayev02021994" target="_blank" rel="noopener noreferrer" class="pinned-card" style="--hover-glow: rgba(34, 158, 217, 0.25);">
+        <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #0ea5e9, #229ED9);">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            Telegram
+            <span class="badge-pill">Asosiy aloqa</span>
+          </div>
+          <div class="card-description">@Jumayev02021994 • Shaxsiy chat va takliflar</div>
+        </div>
+        <div class="arrow-icon-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+      </a>
+
+      <!-- 2. GitHub -->
+      <a href="https://github.com/zavq8515-art" target="_blank" rel="noopener noreferrer" class="pinned-card" style="--hover-glow: rgba(168, 85, 247, 0.25);">
+        <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #7c3aed, #a855f7);">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            GitHub Repozitoriy
+            <span class="badge-pill">Kodlar</span>
+          </div>
+          <div class="card-description">zavq8515-art • Barcha ochiq kodli loyihalarim</div>
+        </div>
+        <div class="arrow-icon-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+      </a>
+
+      <!-- 3. Portfolio & Loyihalar -->
+      <a href="https://github.com/zavq8515-art/link-hub" target="_blank" rel="noopener noreferrer" class="pinned-card" style="--hover-glow: rgba(16, 185, 129, 0.25);">
+        <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #059669, #10b981);">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            Mening Loyihalarim
+            <span class="badge-pill" style="background: rgba(16, 185, 129, 0.2); color: #6ee7b7;">Portfolio</span>
+          </div>
+          <div class="card-description">Link Hub, Antigravity va boshqa amaliy ishlarim</div>
+        </div>
+        <div class="arrow-icon-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+      </a>
+
+      <!-- 4. LinkedIn -->
+      <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="pinned-card" style="--hover-glow: rgba(14, 165, 233, 0.25);">
+        <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #0284c7, #38bdf8);">
+          <svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            LinkedIn
+            <span class="badge-pill">Kasbiy</span>
+          </div>
+          <div class="card-description">Professional rezyume va hamkorlik tarmog‘i</div>
+        </div>
+        <div class="arrow-icon-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+      </a>
+
+      <!-- 5. Instagram -->
+      <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="pinned-card" style="--hover-glow: rgba(236, 72, 153, 0.25);">
+        <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #db2777, #ec4899, #f43f5e);">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            Instagram
+            <span class="badge-pill">Media</span>
+          </div>
+          <div class="card-description">Shaxsiy hayot, bilimlar va foydali storylar</div>
+        </div>
+        <div class="arrow-icon-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+      </a>
+
+      <!-- 6. Bog'lanish Email -->
+      <a href="mailto:zavq8515@gmail.com" class="pinned-card" style="--hover-glow: rgba(245, 158, 11, 0.25);">
+        <div class="card-icon-wrapper" style="background: linear-gradient(135deg, #d97706, #f59e0b);">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        </div>
+        <div class="card-body">
+          <div class="card-title">
+            Email orqali Bog‘lanish
+            <span class="badge-pill">Takliflar</span>
+          </div>
+          <div class="card-description">zavq8515@gmail.com • Loyihalar va savollar</div>
+        </div>
+        <div class="arrow-icon-box">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+        </div>
+      </a>
+
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer-bar">
+      <span>© 2026 Jumayev Zavqiddin. Barcha huquqlar himoyalangan.</span>
+      <span>Dizayn: Professional Bento & Glassmorphism</span>
+    </footer>
+
+  </main>
+
+  <!-- Interactive Spotlight Script & Optional Physics Sandbox -->
   <script>
-    (function () {
-      // Matter.js modullari
-      const {
-        Engine,
-        Render,
-        Runner,
-        Bodies,
-        Composite,
-        Body,
-        Mouse,
-        MouseConstraint,
-        Events,
-        Query,
-        Vector
-      } = Matter;
+    // 1. Mouse Spotlight Glow Effect (Professional saytlardagidek)
+    document.querySelectorAll('.pinned-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+      });
+    });
 
-      // Linklar ma'lumotlari
-      const LINKS_DATA = [
-        {
-          id: 'telegram',
-          title: 'Telegram',
-          desc: '@Jumayev02021994 • Shaxsiy chat',
-          url: 'https://t.me/Jumayev02021994',
-          color: '#229ED9',
-          iconSvg: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.75-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/></svg>`
-        },
-        {
-          id: 'github',
-          title: 'GitHub',
-          desc: 'Dasturlash loyihalarim & kodlar',
-          url: 'https://github.com',
-          color: '#a855f7',
-          iconSvg: `<svg viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>`
-        },
-        {
-          id: 'linkedin',
-          title: 'LinkedIn',
-          desc: 'Kasbiy faoliyat & rezyume',
-          url: 'https://linkedin.com',
-          color: '#0ea5e9',
-          iconSvg: `<svg viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9h2.79v8.37H6.46v-8.37M7.86 6.54a1.63 1.63 0 1 0 0 3.26 1.63 1.63 0 0 0 0-3.26z"/></svg>`
-        },
-        {
-          id: 'instagram',
-          title: 'Instagram',
-          desc: 'Shaxsiy blog & qiziqishlar',
-          url: 'https://instagram.com',
-          color: '#ec4899',
-          iconSvg: `<svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>`
-        },
-        {
-          id: 'portfolio',
-          title: 'Mening Loyihalarim',
-          desc: 'Dasturlashdagi amaliy ishlarim',
-          url: 'https://t.me/Jumayev02021994',
-          color: '#10b981',
-          iconSvg: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>`
-        },
-        {
-          id: 'contact',
-          title: 'Bog\'lanish (Telegram)',
-          desc: '@Jumayev02021994 • Takliflar',
-          url: 'https://t.me/Jumayev02021994',
-          color: '#f59e0b',
-          iconSvg: `<svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>`
+    // 2. Bonus Physics Game Mode (Faqat xohlaganda koptokchalarga aylanadi)
+    const startPhysicsBtn = document.getElementById('start-physics-btn');
+    const exitPhysicsBtn = document.getElementById('exit-physics-btn');
+    const canvas = document.getElementById('physics-canvas');
+
+    let engine, runner, render, physicsStarted = false;
+
+    startPhysicsBtn.addEventListener('click', () => {
+      canvas.classList.add('active');
+      exitPhysicsBtn.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      if (!physicsStarted) {
+        initPhysicsSandbox();
+        physicsStarted = true;
+      }
+    });
+
+    exitPhysicsBtn.addEventListener('click', () => {
+      canvas.classList.remove('active');
+      exitPhysicsBtn.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    });
+
+    function initPhysicsSandbox() {
+      const { Engine, Render, Runner, Bodies, Composite, Mouse, MouseConstraint } = Matter;
+
+      engine = Engine.create({ gravity: { y: 0.8 } });
+      runner = Runner.create();
+      Runner.run(runner, engine);
+
+      render = Render.create({
+        canvas: canvas,
+        engine: engine,
+        options: {
+          width: window.innerWidth,
+          height: window.innerHeight,
+          wireframes: false,
+          background: 'transparent'
         }
-      ];
+      });
+      Render.run(render);
 
-      // O'zgaruvchilar
-      let engine, world, runner, render;
-      let walls = [];
-      let linkBodies = [];
-      let isAntigravity = true; // Boshlang'ich holat: Antigravitatsiya
-      const domLayer = document.getElementById('dom-layer');
-      const canvas = document.getElementById('physics-canvas');
-      const gravityBtn = document.getElementById('gravity-btn');
-      const gravityBtnText = document.getElementById('gravity-btn-text');
-      const scatterBtn = document.getElementById('scatter-btn');
-      const resetBtn = document.getElementById('reset-btn');
+      // Devorlar
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      const t = 100;
+      const wallOpts = { isStatic: true, render: { visible: false } };
 
-      // Card o'lchamlari
-      function getCardDimensions() {
-        const isMobile = window.innerWidth < 640;
-        return {
-          width: isMobile ? 240 : 270,
-          height: isMobile ? 66 : 72
-        };
-      }
+      Composite.add(engine.world, [
+        Bodies.rectangle(w/2, h + t/2, w*2, t, wallOpts),
+        Bodies.rectangle(w/2, -t/2, w*2, t, wallOpts),
+        Bodies.rectangle(-t/2, h/2, t, h*2, wallOpts),
+        Bodies.rectangle(w + t/2, h/2, t, h*2, wallOpts)
+      ]);
 
-      // 1. Dastlabki sozlash
-      function initPhysics() {
-        // Matter Engine
-        engine = Engine.create({
-          enableSleeping: false
-        });
-        world = engine.world;
-
-        // Gravitatsiyani boshlang'ich sozlash (Antigravitatsiya rejimi: yengil float yoki nol)
-        setGravityMode(true);
-
-        // Runner
-        runner = Runner.create();
-        Runner.run(runner, engine);
-
-        // Canvas va Render
-        render = Render.create({
-          canvas: canvas,
-          engine: engine,
-          options: {
-            width: window.innerWidth,
-            height: window.innerHeight,
-            wireframes: false,
-            background: 'transparent'
-          }
-        });
-        Render.run(render);
-
-        // Devorlar yaratish
-        createWalls();
-
-        // Bloklarni yaratish
-        createLinkBlocks();
-
-        // Mouse Constraint (Sichqoncha & Touch boshqaruvi)
-        setupInteractions();
-
-        // Har bir frame yangilanishida DOM elementlarini sinxronlash
-        Events.on(engine, 'afterUpdate', updateDOMTransformations);
-      }
-
-      // 2. Chegara devorlarini yaratish (Screen boundaries)
-      function createWalls() {
-        // Eski devorlarni tozalash
-        if (walls.length > 0) {
-          Composite.remove(world, walls);
-          walls = [];
-        }
-
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-        const thickness = 120; // Qalin devorlar bloklar teshib o'tmasligi uchun
-
-        const wallOptions = {
-          isStatic: true,
-          restitution: 0.8, // Qaytish elastikligi
-          friction: 0.1,
-          render: { visible: false } // Ko'rinmas devorlar
-        };
-
-        // Devorlar
-        const floor = Bodies.rectangle(width / 2, height + thickness / 2, width * 2, thickness, wallOptions);
-        const ceiling = Bodies.rectangle(width / 2, -thickness / 2, width * 2, thickness, wallOptions);
-        const leftWall = Bodies.rectangle(-thickness / 2, height / 2, thickness, height * 2, wallOptions);
-        const rightWall = Bodies.rectangle(width + thickness / 2, height / 2, thickness, height * 2, wallOptions);
-
-        walls = [floor, ceiling, leftWall, rightWall];
-        Composite.add(world, walls);
-      }
-
-      // 3. Havola bloklarini yaratish (Rigid Bodies + DOM Nodes)
-      function createLinkBlocks() {
-        // Tozalash
-        linkBodies.forEach(item => {
-          Composite.remove(world, item.body);
-          if (item.domElement && item.domElement.parentNode) {
-            item.domElement.parentNode.removeChild(item.domElement);
-          }
-        });
-        linkBodies = [];
-
-        const { width: cardW, height: cardH } = getCardDimensions();
-        const headerRect = document.getElementById('main-header').getBoundingClientRect();
-        const startY = headerRect.bottom + 40;
-        const screenW = window.innerWidth;
-        const screenH = window.innerHeight;
-
-        LINKS_DATA.forEach((link, idx) => {
-          // Boshlang'ich tarqoq koordinatalar
-          const cols = screenW < 768 ? 1 : (screenW < 1100 ? 2 : 3);
-          const colIdx = idx % cols;
-          const rowIdx = Math.floor(idx / cols);
-
-          const cellW = screenW / cols;
-          const initialX = (colIdx * cellW) + (cellW / 2) + (Math.random() * 40 - 20);
-          const initialY = startY + (rowIdx * (cardH + 28)) + (Math.random() * 30 - 15);
-
-          // Chegaralardan chiqmasligini tekshirish
-          const clampedX = Math.max(cardW / 2 + 20, Math.min(screenW - cardW / 2 - 20, initialX));
-          const clampedY = Math.max(cardH / 2 + 20, Math.min(screenH - cardH / 2 - 30, initialY));
-
-          // Fizik tana (Rounded chamfer Body)
-          const body = Bodies.rectangle(clampedX, clampedY, cardW, cardH, {
-            chamfer: { radius: 18 },
-            restitution: 0.75, // Elastik sakrash
+      // Rang-barang sakrovchi fizik sharlar
+      const colors = ['#06b6d4', '#8b5cf6', '#ec4899', '#10b981', '#f59e0b', '#3b82f6'];
+      for (let i = 0; i < 22; i++) {
+        const radius = Math.random() * 26 + 18;
+        const ball = Bodies.circle(
+          Math.random() * (w - 100) + 50,
+          Math.random() * (h / 3) + 50,
+          radius,
+          {
+            restitution: 0.85,
             friction: 0.05,
-            frictionAir: 0.015, // Past havo qarshiligi (erkin suzish)
-            density: 0.0015,
-            render: { visible: false } // Canvasda emas, DOM orqali chizamiz
-          });
-
-          // Meta ma'lumot
-          body.plugin = {
-            linkUrl: link.url,
-            id: link.id
-          };
-
-          // DOM elementi yaratish
-          const domElement = document.createElement('div');
-          domElement.className = 'link-card';
-          domElement.style.width = `${cardW}px`;
-          domElement.style.height = `${cardH}px`;
-          domElement.innerHTML = `
-            <div class="icon-box" style="background: ${link.color}">
-              ${link.iconSvg}
-            </div>
-            <div class="link-info">
-              <div class="link-title">
-                ${link.title}
-              </div>
-              <div class="link-desc">${link.desc}</div>
-            </div>
-            <div class="external-arrow">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M7 17L17 7M17 7H7M17 7V17"/>
-              </svg>
-            </div>
-          `;
-
-          domLayer.appendChild(domElement);
-
-          // Boshlang'ich mikroturtki (Zero-G effekti uchun)
-          Body.setVelocity(body, {
-            x: (Math.random() - 0.5) * 2.5,
-            y: (Math.random() - 0.5) * 2.5
-          });
-          Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.04);
-
-          Composite.add(world, body);
-
-          linkBodies.push({
-            body: body,
-            domElement: domElement,
-            link: link,
-            width: cardW,
-            height: cardH
-          });
-        });
-      }
-
-      // 4. DOM Transform sinxronizatsiyasi
-      function updateDOMTransformations() {
-        linkBodies.forEach(item => {
-          const { x, y } = item.body.position;
-          const angle = item.body.angle;
-
-          // Markazdan transform qilish
-          const translateX = x - item.width / 2;
-          const translateY = y - item.height / 2;
-
-          item.domElement.style.transform = `translate3d(${translateX}px, ${translateY}px, 0px) rotate(${angle}rad)`;
-        });
-
-        // Agar antigravitatsiya rejimida bo'lsa, elementlar to'xtab qolmasligi uchun yengil tebranish kuchi
-        if (isAntigravity) {
-          linkBodies.forEach(item => {
-            const speed = Vector.magnitude(item.body.velocity);
-            if (speed < 0.3) {
-              Body.applyForce(item.body, item.body.position, {
-                x: (Math.random() - 0.5) * 0.0003,
-                y: (Math.random() - 0.5) * 0.0003
-              });
-            }
-          });
-        }
-      }
-
-      // 5. Sichqoncha va Drag / Click farqlash mantiqi
-      function setupInteractions() {
-        const mouse = Mouse.create(canvas);
-
-        const mouseConstraint = MouseConstraint.create(engine, {
-          mouse: mouse,
-          constraint: {
-            stiffness: 0.25,
-            damping: 0.1,
-            render: { visible: false }
-          }
-        });
-
-        Composite.add(world, mouseConstraint);
-
-        // Click vs Drag mantiqi
-        let pointerStartPos = null;
-        let pointerStartTime = 0;
-        let targetBody = null;
-        let activeDomItem = null;
-
-        // Pointer down
-        Events.on(mouseConstraint, 'mousedown', function (event) {
-          pointerStartPos = { x: mouse.position.x, y: mouse.position.y };
-          pointerStartTime = Date.now();
-
-          // Qaysi havola ustida bosilganini aniqlash
-          const bodiesUnderMouse = Query.point(linkBodies.map(l => l.body), mouse.position);
-          if (bodiesUnderMouse.length > 0) {
-            targetBody = bodiesUnderMouse[0];
-            activeDomItem = linkBodies.find(l => l.body === targetBody);
-            if (activeDomItem) {
-              activeDomItem.domElement.classList.add('active-drag');
-            }
-          } else {
-            targetBody = null;
-            activeDomItem = null;
-          }
-        });
-
-        // Pointer up
-        Events.on(mouseConstraint, 'mouseup', function (event) {
-          if (activeDomItem) {
-            activeDomItem.domElement.classList.remove('active-drag');
-          }
-
-          if (targetBody && pointerStartPos) {
-            const dx = mouse.position.x - pointerStartPos.x;
-            const dy = mouse.position.y - pointerStartPos.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const duration = Date.now() - pointerStartTime;
-
-            // Agar 10 pikseldan kam siljigan bo'lsa va 380ms ichida bo'lsa — bu KLIK!
-            if (distance < 10 && duration < 380) {
-              const url = targetBody.plugin?.linkUrl;
-              if (url) {
-                // Yangi oynada ochish
-                window.open(url, '_blank', 'noopener,noreferrer');
-              }
+            render: {
+              fillStyle: colors[i % colors.length]
             }
           }
-
-          targetBody = null;
-          activeDomItem = null;
-          pointerStartPos = null;
-        });
+        );
+        Composite.add(engine.world, ball);
       }
 
-      // 6. Gravitatsiya rejimini boshqarish
-      function setGravityMode(antigravityActive) {
-        isAntigravity = antigravityActive;
-
-        if (isAntigravity) {
-          // Antigravitatsiya: deyarli vaznsizlik, juda yengil ko'tarilish yoki erkin suzish
-          engine.gravity.y = -0.015;
-          engine.gravity.x = 0;
-          engine.gravity.scale = 0.001;
-
-          gravityBtn.classList.add('antigravity-mode');
-          gravityBtn.classList.remove('normal-mode');
-          gravityBtnText.textContent = 'Antigravitatsiya: YOQILGAN';
-
-          // Bloklarga yengil tasodifiy turtki berish
-          linkBodies.forEach(item => {
-            Body.setVelocity(item.body, {
-              x: (Math.random() - 0.5) * 3,
-              y: (Math.random() - 0.5) * 3
-            });
-          });
-        } else {
-          // Normal rejim: Yer gravitatsiyasi (pastga tushadi va elastik sakraydi)
-          engine.gravity.y = 1;
-          engine.gravity.x = 0;
-          engine.gravity.scale = 0.001;
-
-          gravityBtn.classList.remove('antigravity-mode');
-          gravityBtn.classList.add('normal-mode');
-          gravityBtnText.textContent = 'Normal Rejim: Gravitatsiya (1G)';
-        }
-      }
-
-      // Tugmalar hodisalari
-      gravityBtn.addEventListener('click', () => {
-        setGravityMode(!isAntigravity);
+      // Mouse drag
+      const mouse = Mouse.create(canvas);
+      const mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: { stiffness: 0.2, render: { visible: false } }
       });
-
-      // Scatter (Sochib yuborish)
-      scatterBtn.addEventListener('click', () => {
-        linkBodies.forEach(item => {
-          const forceMagnitude = 0.045 * item.body.mass;
-          const angle = Math.random() * Math.PI * 2;
-          Body.applyForce(item.body, item.body.position, {
-            x: Math.cos(angle) * forceMagnitude,
-            y: Math.sin(angle) * forceMagnitude
-          });
-          Body.setAngularVelocity(item.body, (Math.random() - 0.5) * 0.1);
-        });
-      });
-
-      // Reset (Tartibli qaytarish)
-      resetBtn.addEventListener('click', () => {
-        createLinkBlocks();
-      });
-
-      // 7. Window Resize hodisasi
-      let resizeTimeout;
-      window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-          const width = window.innerWidth;
-          const height = window.innerHeight;
-
-          // Render va canvas hajmini yangilash
-          render.canvas.width = width;
-          render.canvas.height = height;
-
-          // Devorlarni yangilash
-          createWalls();
-
-          // Agar biron blok ekrandan chiqib ketgan bo'lsa, ichkariga tortish
-          const { width: cardW, height: cardH } = getCardDimensions();
-          linkBodies.forEach(item => {
-            let px = item.body.position.x;
-            let py = item.body.position.y;
-
-            if (px < cardW / 2) px = cardW / 2 + 10;
-            if (px > width - cardW / 2) px = width - cardW / 2 - 10;
-            if (py < cardH / 2) py = cardH / 2 + 10;
-            if (py > height - cardH / 2) py = height - cardH / 2 - 10;
-
-            Body.setPosition(item.body, { x: px, y: py });
-          });
-        }, 150);
-      });
-
-      // Boshlash
-      initPhysics();
-    })();
+      Composite.add(engine.world, mouseConstraint);
+    }
   </script>
 </body>
 </html>
